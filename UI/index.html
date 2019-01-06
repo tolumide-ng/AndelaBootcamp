@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PAPAAFRICA</title>
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+        <header>
+                <div class="logo">
+                    <img src="img/play.svg" alt="" class="img">
+                </div>
+                <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                <nav>
+                    <ul>
+                        <li><a href='#'>PaPaAfrica</a></li>
+                    </ul>
+                </nav>
+        
+                <label for="nav-toggle" class="nav-toggle-label">
+                    <span></span>
+                </label>
+            </header>
+
+
+            <section class="main">
+                <div class="signup">
+                    <form class="form" action="">
+                        <label class="form__label" for="firstName">First name</label>
+                        <input class="form__text" type="text" id="firstName" name="firstName">
+                        <label class="form__label" for="lastName">Last name</label>
+                        <input class="form__text" type="text" id="lastname" name="lastname">
+                        <label class="form__label" for="userName">userName</label>
+                        <input class="form__text" type="text" id="userName" name="userName">
+                        <label class="form__label" for="email">Your Email <span class="form__tooltip" data-tooltip="Please enter your email address">?</span></label>
+                        <input class="form__text" type="email" id="email" name="email">
+                            <div class="flex">
+                                <div class="flexcontent a">
+                                    <label class="form__label" for="password">Password <span class="form__tooltip" data-tooltip="Minimum 12 characters, at least one capital and one number">?</span></label>
+                                    <input class="form__text" type="password" id="password" name="password">
+                                </div>
+                                <div class="flexcontent">
+                                    <label class="form__label" for="password-reenter">Re-enter password</label>
+                                    <input class="form__text" type="password" id="password-reenter" name="password-reenter">
+                                </div>
+                                    
+                            </div>
+                          
+                            <p class="fineprint flex-center">
+                              <input class="form__checkbox" type="checkbox" id="agreement" name="agreement">
+                              <label for="agreement">I am 13 years of age or older AND agree to the <a href="#">terms and serivces</a>.</label>
+                            </p>
+                            <p>
+                              <img class="recaptcha" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/308367/recaptcha-dark.png" alt="">
+                            </p>
+                            
+                            <button class="button"><a href="./homepage.html">Sign up now</a> </button>
+                            <a href="./signin.html" class="fineprint">I already have an account</a>      
+                          </form>
+                </div>
+                <div class="mascot">
+                    <img src="./img/elephant.svg" alt="" id="theimage">
+                </div>
+                          
+            </section>
+            
+</body>
+</html>
