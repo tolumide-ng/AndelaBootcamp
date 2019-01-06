@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="./styles/create2.css">
+    <link rel="stylesheet" href="./styles/create.css">
+</head>
+<body>
+
+    <header id="menu">
+        <p>PaPa<span>Africa</span></p>
+    </header>
+
+
+    <!-- side bar navigation -->
+
+    <div id="papa">
+
+            <header>
+
+                    <div class="logo">
+                        <img src="img/play.svg" alt="" class="img">
+                    </div>
+                    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                    <nav>
+                        <ul>
+                                <li><a href=".homepage.html">Home</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Notes</a></li>
+                                <li><a href="#">Create</a></li>
+                                <li><a href="./admin.html">Edit</a></li>
+                                <li><a href="./admin.html">Delete</a></li>
+                        </ul>
+                    </nav>
+                    
+                    <label for="nav-toggle" class="nav-toggle-label">
+                        <span></span>
+                    </label>
+                </header>
+
+    <div id="content">
+        <h1 class="postHeader">Create Meetup</h1>
+        <form action="#" id="form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="data-input input" placeholder="Enter a title" name="title">
+            </div>
+
+            <div class="form-group">
+                <label for="file" class="form-label">File Upload</label>
+                <input type="file" class="data-input input" name="file">
+            </div>
+
+            <div class="form-group">
+                <label for="status" class="form-label" id="form-status-label">Status</label>
+                <select name="status" id="status" class="data-input">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="allowComments" class="allowComments">
+                    Allow Comments
+                    <input type="checkbox" name="allowComments" class="data-input" id="allowComments">
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="body" class="form-label">Post Body</label>
+                <textarea name="body" id="body" cols="150" rows="10" placeholder="Enter Description here"></textarea>
+            </div>
+
+            <button id="submit"><a href="./../../HomePage/index.html"> Create Meetup </a></button>
+        </form>
+
+    </div>
+
+</body>
+</html>
