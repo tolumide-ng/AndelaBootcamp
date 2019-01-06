@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+:root{
+    --bk-1: #ffff;
+    --bk-2: #393E46;
+    --bk-3: #FFF4E0;
+    --bk-4: #171f29;
+    --bk-5: #F8B500;
+    --bk-6: #1fd030;
+    --bk-7: #00ADB5;
+    --bk-8: #FFF4E0 
+
+    --clr-dark: rgba(0,0,0,.25);
+    --clr-body: rgba(255,255,255,.8);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.logo .img {
+    height: 30px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--bk-3);
+}
+
+a {
+    all: unset;
+    font-size: 1.1em;
+}
+
+header {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    background: var(--bk-2);
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 1em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-toggle-label span, 
+.nav-toggle-label span::before, 
+.nav-toggle-label span::after {
+    display: block;
+    background: white;
+    height: 2px;
+    width: 2em;
+    border-radius: 2px;
+    position: relative;
+}
+
+.nav-toggle-label span::before, 
+.nav-toggle-label span::after {
+    content: '';
+    position: absolute;
+}
+
+.nav-toggle-label span::before {
+    bottom: 7px;
+}
+
+.nav-toggle-label span::after {
+    top: 7px;
+}
+
+nav {
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    left: 0;
+    background: rgba(8, 42, 48, 0.678);
+    width: 100%;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 300ms ease-in-out;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    margin-bottom: 1em;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+li a {
+    cursor: pointer;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    opacity: 0;
+    transform: opacity 150ms ease-in-out;
+}
+
+nav a:hover{
+    color: var(--bk-5);
+    cursor: pointer;
+}
+
+.nav-toggle:checked ~ nav {
+    transform: scale(1, 1);
+}
+
+.nav-toggle:checked ~ nav a {
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 250ms;
+}
+
+@media screen and (min-width: 900px) {
+    .nav-toggle-label {
+        display: none;
+    }
+    header {
+        display: grid;
+        grid-template-columns: 1fr auto minmax(600px, 1fr) 1fr;
+    }
+    .logo{
+        grid-column: 2/ 3;
+    }
+    nav {
+        all: unset;
+        grid-column: 3/ 4;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    nav a {
+        opacity: 1;
+        position: relative;
+    }
+    nav ul {
+        display: flex;
+    }
+    nav li {
+        margin-left: 3em;
+        margin-bottom: 0;
+    }
+    nav a::before {
+        content: '';
+        display: block;
+        height: 5px;
+        background: white;
+        position: absolute;
+        top: -.75em;
+        left: 0;
+        right: 0;
+        transform:  scale(0, 1);
+         transform-origin: top; 
+        transition: transform ease-in-out 250ms;
+    }
+
+    nav a:hover::before{
+        transform: scale(1,1);
+    }
+}
+
+section {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 100%;
+    padding-top: 100px;
+}
+
+.signin {
+    grid-row: 1;
+    grid-column: 2;
+    padding: 20px;
+}
+
+.button {
+    all: unset;
+    cursor: pointer;
+    display: inline-block;
+    background: #F8B500;
+    padding: .5em 1.75em;
+    color: rgba(0,0,0,.8);
+    font-weight: var(--fw-3);
+    transform: scale(1);
+    transition: transform ease-in-out 150ms;
+}
+
+
+.button:hover{
+    transform: scale(1.1);
+}
+
+
+.form__label {
+    display: block;
+}
+
+.form__text{
+    all: unset;
+    display: block;
+    background: var(--bk-7);
+    width: 100%;
+    margin: .25em 0 1em;
+    padding: 0.6em;
+    color: white;
+}
+
+.recaptcha {
+    margin: .5em  0 1em;
+}
+
+.flexcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.flex {
+    display: flex;
+    flex-direction: column;
+}
