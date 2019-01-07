@@ -10,10 +10,10 @@ class Meetup {
   create(data) {
     const meetup = {
       meetupId: uuid.v4(),
+      topic: data.topic,
       createdOn: moment.now(),
       location: data.location,
       images: data.images || '',
-      topic: data.topic,
       happeningOn: data.happeningOn,
       tags: data.tags,
     };
@@ -27,6 +27,10 @@ class Meetup {
 
   getOne(meetupId) {
     return this.meetups.find(meetup => meetup.meetupId === meetupId);
+  }
+
+  upcomings() {
+    return this.meetups.filter(meetup => new Date(meetup.happeningOn) > new Date());
   }
 }
 

@@ -60,6 +60,25 @@ const meetups = {
       tags: theMeetup.tags,
     });
   },
+
+  allUpcomings(req, res) {
+    const upcomingMeetups = meetupModel.upcomings();
+    if (upcomingMeetups.length) {
+      return res.status(200).json({
+        count: upcomingMeetups.length,
+        data: upcomingMeetups.map(upcomingMeetup => ({
+          meetupId: upcomingMeetup.meetupId,
+          title: upcomingMeetup.topic,
+          location: upcomingMeetup.location,
+          happeningOn: upcomingMeetup.happeningOn,
+          tags: upcomingMeetup.tags,
+        })),
+      });
+    }
+    return res.status(404).json({
+      message: 'No meetups found',
+    });
+  },
 };
 
 export default meetups;
