@@ -2,9 +2,10 @@
   "name": "andelabootcamp",
   "version": "1.0.0",
   "description": "Node RESTful API",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node server/app.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "cors": "^2.8.5",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-import": "^2.14.0",
@@ -38,6 +40,8 @@
     "eslint-plugin-react": "^7.12.3",
     "express": "^4.16.4",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.9"
+    "moment": "^2.23.0",
+    "nodemon": "^1.18.9",
+    "uuid": "^3.3.2"
   }
 }
