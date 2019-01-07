@@ -1,5 +1,8 @@
-/* import questionControllers from '../controllers/questionsControllers';
+import express from 'express';
+import questionControllers from '../controllers/questionsControllers';
 
 const router = express.Router();
 
-router.post('/', questionControllers.create); */
+router.post('/', questionControllers.createQuestion);
+
+export default router;

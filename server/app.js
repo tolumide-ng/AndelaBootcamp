@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.use('/api/v1/meetups', meetupsRoutes);/* 
-app.use('/api/v1/questions', questionsRoutes); */
+app.use('/api/v1/meetups', meetupsRoutes);
+app.use('/api/v1/questions', questionsRoutes);
 app.use('/api/v1/users', usersRoutes);
 
 app.get('/', (req, res) => {
