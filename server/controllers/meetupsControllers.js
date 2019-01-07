@@ -1,5 +1,6 @@
 import meetupsModels from '../models/meetupsModels';
 import validation from '../validations/validate';
+import usersModels from './../models/usersModels';
 
 const meetups = {
   createMeetup(req, res) {
@@ -79,6 +80,29 @@ const meetups = {
       message: 'No meetups found',
     });
   },
+
+  rsvps(req, res) {
+    const data = req.body;
+    /* const confirmUser = usersModels.user.find(user=>user.userId === data.user); */
+    const confirmMeetup = meetupsModels.getOne(data.meetup);
+    const confirmParams = (req.body.meetupId === req.params.meetupId);
+    const confirmStatus = 'yes' || 'no' || 'maybe';
+    if (confirmMeetup && confirmStatus && confirmParams) {
+      usersModels.rsvp(data);
+      return res.status(200).json({
+        status: uuid.v4(),
+        data: {
+          meetup: confirmUser.userId,
+          topic: confirmUser.topic,
+          status: data.status,
+        }
+      })
+    }
+    return res.status(422).json({
+      message: 'Ensure information provided are valid'
+    })
+  }, 
+
 };
 
 export default meetups;
