@@ -1,6 +1,6 @@
 import meetupsModels from '../models/meetupsModels';
 import validation from '../validations/validate';
-import usersModels from './../models/usersModels';
+import usersModels from '../models/usersModels';
 
 const meetups = {
   createMeetup(req, res) {
@@ -95,13 +95,13 @@ const meetups = {
           meetup: confirmUser.userId,
           topic: confirmUser.topic,
           status: data.status,
-        }
-      })
+        },
+      });
     }
     return res.status(422).json({
-      message: 'Ensure information provided are valid'
-    })
-  }, 
+      message: 'Ensure information provided are valid',
+    });
+  },
 
 };
 
