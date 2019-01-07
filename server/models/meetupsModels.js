@@ -19,7 +19,12 @@ class Meetup {
     };
     this.meetups.push(meetup);
     return meetup;
-  }
+  }, 
+
+  getAll() {
+    return this.meetups;
+  }, 
+  
 }
 
 export default new Meetup();
