@@ -7,8 +7,8 @@ const meetups = {
     // all paraters are required
     const data = req.body;
     const dateHappening = (new Date(data.happeningOn) > new Date());
-    if (!data.topic && !data.location && !data.tags
-            && !data.happeningOn && !dateHappening) {
+    if (!data.topic || !data.location || !data.tags
+            || !data.happeningOn || !dateHappening) {
       return res.status(422).json({
         status: 422,
         error: 'All fields are required',
@@ -44,7 +44,7 @@ const meetups = {
   findOne(req, res) {
     const params = req.params.meetupId;
     const theMeetup = meetupsModels.getOne(params);
-    if (!theMeetup) {
+    if (theMeetup.length == 0) {
       return res.status(404).json({
         status: 404,
         error: 'Meetup Not Found',
@@ -59,7 +59,13 @@ const meetups = {
   allUpcomings(req, res) {
     const upcomingMeetups = meetupModel.upcomings();
     if (upcomingMeetups.length) {
-      return res.status(200).json({
+    return res.status(404).json({
+      status: 404,
+      error: 'No meetups found',
+    });
+      
+    }
+	return res.status(200).json({
         status: 200,
         data: upcomingMeetups.map(upcomingMeetup => ({
           meetupId: upcomingMeetup.meetupId,
@@ -69,25 +75,26 @@ const meetups = {
           tags: upcomingMeetup.tags,
         })),
       });
-    }
-    return res.status(404).json({
-      status: 404,
-      error: 'No meetups found',
-    });
   },
 
   rsvps(req, res) {
     const data = req.body;
-    const confirmUser = usersModels.user.find(user=>user.userId === data.user);
+    const confirmUser = usersModels.findUser(user=>user.userId === data.user);
     const confirmMeetup = meetupsModels.getOne(data.meetup);
     const confirmParams = (req.body.meetupId === req.params.meetupId);
     const confirmStatus = (data.status === 'yes' || 'no' || 'maybe');
-    if (confirmMeetup && confirmStatus && confirmParams) {
-      usersModels.rsvp(data);
-      return res.status(200).json({
-        status: 200,
-        data: [confirmUser],
-      });
+    if(confirmMeetup && confirmParams) {
+      if(confirmStatus){
+        usersModels.rsvp(data);
+        return res.status(200).json({
+          status: 200,
+          data: [confirmUser],
+        });
+      }
+    		return res.status(404).json({
+    		status: 404,
+    		error: 'Ensure information provided are valid, Not found',
+        });
     }
     return res.status(422).json({
       status: 422,
