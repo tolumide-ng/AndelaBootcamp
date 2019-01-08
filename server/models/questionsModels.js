@@ -1,7 +1,7 @@
-/* import moment from 'moment';
+import moment from 'moment';
 import uuid from 'uuid';
-import meetupModel from './meetupsModels';
 import userModel from './usersModels';
+import meetupsModels from '../models/meetupsModels'
 
 
 class Question {
@@ -21,10 +21,34 @@ class Question {
       meetupId: theMeetup.meetupId,
       title: data.title,
       body: data.body,
-      upvote: data.upvote,
-      downvote: data.downvote,
+      vote: data.upvote,
     };
     this.questions.push(theQuestion);
     return theQuestion;
   }
-} */
+
+  findQ(data) {
+    return this.questions.find(question => question.questionId === data);
+  }
+
+  upvote(req, res) {
+    const theQuestion = questionsModels.forDel(data.questionId);
+    // does the user exist
+    const theUser = usersModels.findUser(data.userId);
+    // does the meetup exist
+    const theMeetup = meetupsModels.getOne(data.meetupId);
+    if(theQuestion && theUser && theMeetup){
+        const upvoteQuestion = questionsModels.requestUpvote(req.body);
+        return res.status(200).json({
+            downvote: upvoteQuestion.downvote,
+            upvote: upvoteQuestion.upvote
+        });
+    }
+    return res.status(404).json({
+        message: 'Not found'
+    });
+},
+
+}
+
+export default new Question();

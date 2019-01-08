@@ -27,6 +27,10 @@ class User {
     };
     this.signUsers.push(newUser);
   }
+
+  findUser(data) {
+    this.signUsers.find(user => user.userId === data);
+  }
 }
 
 export default new User();

@@ -4,5 +4,6 @@ import questionControllers from '../controllers/questionsControllers';
 const router = express.Router();
 
 router.post('/', questionControllers.createQuestion);
+router.patch('/:questionId/upvote', questions.upvote);
 
 export default router;
