@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import meetupsRoutes from './routes/meetupsRoutes';
 import usersRoutes from './routes/usersRoutes';
+import questionsRoutes from './routes/questionsRoutes';
 
 const app = express();
 
