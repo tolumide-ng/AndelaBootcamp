@@ -4,8 +4,7 @@ import usersModels from '../models/usersModels';
 
 const meetups = {
   createMeetup(req, res) {
-    // all para
-    ters are required
+    // all paraters are required
     const data = req.body;
     const dateHappening = (new Date(data.happeningOn) > new Date());
     if (!data.topic && !data.location && !data.tags
