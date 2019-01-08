@@ -9,18 +9,18 @@ const User = {
       if (!theConfirm) {
         const theUser = users.signup(data);
         return res.status(201).json({
-          firstName: theUser.firstName,
-          lastName: theUser.lastName,
-          email: theUser.email,
-          phoneNumber: theUser.phoneNumber,
+          status: 201,
+          data: [theUser]
         });
       }
       return res.status(409).json({
-        message: ' Email already exist',
+        status: 409,
+        error: ' Email already exist',
       });
     }
     return res.status(400).json({
-      message: 'Bad Syntax: All fields are required',
+      status: 400,
+      error: 'Bad Syntax: All fields are required',
     });
   },
 };

@@ -33,12 +33,14 @@ class Question {
     // does the question exist
     const theQuestion = this.findQ(data);
     theQuestion.vote += 1;
+    return theQuestion;
   }
 
   requestDownvote(data) {
     // does the question exist
     const theQuestion = this.findQ(data);
     theQuestion.vote -= 1;
+    return theQuestion;
   }
 }
 

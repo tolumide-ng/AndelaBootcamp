@@ -13,6 +13,7 @@ class User {
       registeredId: moment.now(),
       meetupId: data.meetupId,
       firstName: data.firstName,
+      response: data.status,
     };
     this.users.push(newUser);
     return newUser;
@@ -24,12 +25,14 @@ class User {
       registeredId: moment.now(),
       firstName: data.firstName,
       lastName: data.lastName,
+      email: data.email,
     };
     this.signUsers.push(newUser);
+    return newUser;
   }
 
   findUser(data) {
-    this.signUsers.find(user => user.userId === data);
+    return this.signUsers.find(user => user.userId === data);
   }
 }
 

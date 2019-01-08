@@ -11,21 +11,18 @@ const Question = {
       if(theUser && confirmMeetup){
         const createdQuestion = questionsModels.askQuestion(req.body);
         return res.status(201).json({
-          createdBy: createdQuestion.createdBy,
-          meetupId: createdQuestion.meetupId,
-          userId: createdQuestion.userId,
-          questionId: createdQuestion.questionId,
-          body: createdQuestion.body,
-          title: createdQuestion.title,
-          vote: createdQuestion.vote,
+          status: 201,
+          data: [createdQuestion]
         });
       }
       return res.status(401).json({
-        message: 'Authentication Error!, Please confirm user and meetupId'
+        status: 401,
+        error: 'Authentication Error!, Please confirm user and meetupId'
       })
     }
     return res.status(422).json({
-      message: 'All fields are required',
+      status: 422,
+      error: 'All fields are required',
     });
   },
 
@@ -35,14 +32,13 @@ const Question = {
     if (theQuestion) {
       const upvoteQuestion = questionsModels.requestUpvote(data);
       return res.status(200).json({
-        meetup: theQuestion.meetupId,
-        title: theQuestion.title,
-        body: theQuestion.body,
-        vote: theQuestion.vote,
+        status: 200, 
+        data: [theQuestion]
       });
     }
     return res.status(404).json({
-      message: 'Not found',
+      status: 404,
+      error: 'Not found',
     });
   },
 
@@ -52,14 +48,13 @@ const Question = {
     if (theQuestion) {
       questionsModels.requestDownvote(data);
       return res.status(200).json({
-        meetup: theQuestion.meetupId,
-        title: theQuestion.title,
-        body: theQuestion.body,
-        vote: theQuestion.vote,
+        status: 200, 
+        data: [theQuestion]
       });
     }
     return res.status(404).json({
-      message: 'Question Not Found',
+      statusL 404,
+      error: 'Question Not Found',
     });
   },
 
