@@ -15,7 +15,7 @@ class Question {
     const theQuestion = {
       questionId: uuid.v4(),
       createdOn: moment.now(),
-      userId: theUser.userId,
+      createdBy: theUser.userId,
       meetupId: theMeetup.meetupId,
       title: data.title,
       body: data.body,

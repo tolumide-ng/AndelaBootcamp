@@ -53,7 +53,7 @@ const Question = {
       });
     }
     return res.status(404).json({
-      statusL 404,
+      status: 404,
       error: 'Question Not Found',
     });
   },
