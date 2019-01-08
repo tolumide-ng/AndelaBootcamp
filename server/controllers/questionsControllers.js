@@ -1,5 +1,6 @@
 import usersModels from '../models/usersModels';
 import meetupsModels from '../models/meetupsModels';
+import questionsModels from './../models/questionsModels';
 
 const Question = {
   createQuestion(req, res) {
@@ -22,4 +23,41 @@ const Question = {
       message: 'All fields are required',
     });
   },
+
+  upvote(req, res) {
+    const theQuestion = questionsModels.findQ(data.questionId);
+    const theUser = usersModels.findUser(data.userId);
+    // does the meetup exist
+    const theMeetup = meetupsModels.getOne(data.meetupId);
+    if(theQuestion && theUser && theMeetup){
+        const upvoteQuestion = questionsModels.requestUpvote(req.body);
+        return res.status(200).json({
+            downvote: upvoteQuestion.downvote,
+            upvote: upvoteQuestion.upvote
+        });
+    }
+    return res.status(404).json({
+        message: 'Not found'
+    });
+},
+
+downvote(req, res) {
+  const theQuestion = questionsModels.findQ(data.questionId);
+    const theUser = usersModels.findUser(data.userId);
+    // does the meetup exist
+    const theMeetup = meetupsModels.getOne(data.meetupId);
+  if(theQuestion && theUser && theMeetup){
+      const upvoteQuestion = questionsModels.requestDownvote(req.body);
+      return res.status(200).json({
+          downvote: upvoteQuestion.downvote,
+          upvote: upvoteQuestion.upvote
+      });
+  }
+  return res.status(404).json({
+      message: 'Not found'
+  });
+}
+
 };
+
+export default Question;
