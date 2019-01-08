@@ -41,13 +41,11 @@ const Question = {
     });
 },
 
-/* downvote(req, res) {
-  //does the question exist
-  const theQuestion = questionsModels.forDel(data.questionId);
-  // does the user exist
-  const theUser = usersModels.findUser(data.userId);
-  // does the meetup exist
-  const theMeetup = meetupsModels.getOne(data.meetupId);
+downvote(req, res) {
+  const theQuestion = questionsModels.findQ(data.questionId);
+    const theUser = usersModels.findUser(data.userId);
+    // does the meetup exist
+    const theMeetup = meetupsModels.getOne(data.meetupId);
   if(theQuestion && theUser && theMeetup){
       const upvoteQuestion = questionsModels.requestDownvote(req.body);
       return res.status(200).json({
@@ -58,7 +56,7 @@ const Question = {
   return res.status(404).json({
       message: 'Not found'
   });
-} */
+}
 
 };
 
