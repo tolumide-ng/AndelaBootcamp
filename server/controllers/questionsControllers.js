@@ -1,6 +1,6 @@
 import usersModels from '../models/usersModels';
 import meetupsModels from '../models/meetupsModels';
-import questionsModels from './../models/questionsModels';
+import questionsModels from '../models/questionsModels';
 
 const Question = {
   createQuestion(req, res) {
@@ -8,16 +8,21 @@ const Question = {
     if (!data.title && !data.body && !data.user && !data.meetup) {
       const theUser = usersModels.signUsers.find(user => user.userId === data.user);
       const confirmMeetup = meetupsModels.meetups.find(meetup => meetup.meetupId === data.meetupId);
-      const createdQuestion = questionsModels.askQuestion(req.body);
-      return releaseEvents.status(201).json({
-        createdBy: createdQuestion.createdBy,
-        meetupId: createdQuestion.meetupId,
-        questionId: createdQuestion.questionId,
-        body: createdQuestion.body,
-        title: createdQuestion.title,
-        upvote: createdQuestion.upvote,
-        downvote: createdQuestion.downvote,
-      });
+      if(theUser && confirmMeetup){
+        const createdQuestion = questionsModels.askQuestion(req.body);
+        return res.status(201).json({
+          createdBy: createdQuestion.createdBy,
+          meetupId: createdQuestion.meetupId,
+          userId: createdQuestion.userId,
+          questionId: createdQuestion.questionId,
+          body: createdQuestion.body,
+          title: createdQuestion.title,
+          vote: createdQuestion.vote,
+        });
+      }
+      return res.status(401).json({
+        message: 'Authentication Error!, Please confirm user and meetupId'
+      })
     }
     return res.status(422).json({
       message: 'All fields are required',
@@ -25,38 +30,38 @@ const Question = {
   },
 
   upvote(req, res) {
-    const theQuestion = questionsModels.findQ(data.questionId);
-    const theUser = usersModels.findUser(data.userId);
-    // does the meetup exist
-    const theMeetup = meetupsModels.getOne(data.meetupId);
-    if(theQuestion && theUser && theMeetup){
-        const upvoteQuestion = questionsModels.requestUpvote(req.body);
-        return res.status(200).json({
-            downvote: upvoteQuestion.downvote,
-            upvote: upvoteQuestion.upvote
-        });
+    const data = req.params.questionId;
+    const theQuestion = questionsModels.findQ(data);
+    if (theQuestion) {
+      const upvoteQuestion = questionsModels.requestUpvote(data);
+      return res.status(200).json({
+        meetup: theQuestion.meetupId,
+        title: theQuestion.title,
+        body: theQuestion.body,
+        vote: theQuestion.vote,
+      });
     }
     return res.status(404).json({
-        message: 'Not found'
+      message: 'Not found',
     });
-},
+  },
 
-downvote(req, res) {
-  const theQuestion = questionsModels.findQ(data.questionId);
-    const theUser = usersModels.findUser(data.userId);
-    // does the meetup exist
-    const theMeetup = meetupsModels.getOne(data.meetupId);
-  if(theQuestion && theUser && theMeetup){
-      const upvoteQuestion = questionsModels.requestDownvote(req.body);
+  downvote(req, res) {
+    const data = req.params.questionId;
+    const theQuestion = questionsModels.findQ(data);
+    if (theQuestion) {
+      questionsModels.requestDownvote(data);
       return res.status(200).json({
-          downvote: upvoteQuestion.downvote,
-          upvote: upvoteQuestion.upvote
+        meetup: theQuestion.meetupId,
+        title: theQuestion.title,
+        body: theQuestion.body,
+        vote: theQuestion.vote,
       });
-  }
-  return res.status(404).json({
-      message: 'Not found'
-  });
-}
+    }
+    return res.status(404).json({
+      message: 'Question Not Found',
+    });
+  },
 
 };
 
