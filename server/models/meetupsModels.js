@@ -6,7 +6,7 @@ class Meetup {
     this.meetups = [];
     this.attending = [];
   }
-
+  //method creates a meetup
   create(data) {
     const meetup = {
       meetupId: uuid.v4(),
@@ -21,14 +21,17 @@ class Meetup {
     return meetup;
   }
 
+  //method gets all available meetups
   getAll() {
     return this.meetups;
   }
 
+  //function gets one meetups
   getOne(meetupId) {
     return this.meetups.find(meetup => meetup.meetupId === meetupId);
   }
 
+  //method returns all upcoming meetups
   upcomings() {
     return this.meetups.filter(meetup => new Date(meetup.happeningOn) > new Date());
   }

@@ -4,23 +4,21 @@ import usersModels from '../models/usersModels';
 
 const meetups = {
   createMeetup(req, res) {
-    // all parameters are required
+    // all para
+    ters are required
     const data = req.body;
     const dateHappening = (new Date(data.happeningOn) > new Date());
     if (!data.topic && !data.location && !data.tags
             && !data.happeningOn && !dateHappening) {
       return res.status(422).json({
-        message: 'All fields are required',
+        status: 422,
+        error: 'All fields are required',
       });
     }
     const createdMeetup = meetupModel.create(data);
     return res.status(201).json({
       status: 201,
-      topic: createdMeetup.topic,
-      location: createdMeetup.location,
-      happeningOn: createdMeetup.happeningOn,
-      tags: validation.confirmArray(createdMeetup.tags),
-      createdOn: createdMeetup.createdOn,
+      data: [createdMeetup]
     });
   },
 
@@ -28,12 +26,12 @@ const meetups = {
     const allMeetups = meetupsModels.getAll();
     if (!allMeetups.length) {
       return res.status(404).json({
-        message: 'Meetups not found',
+        status: 404,
+        error: 'Meetups not found',
       });
     }
     return res.status(200).json({
       status: 200,
-      Meetups: allMeetups.length,
       data: allMeetups.map(meetup => ({
         meetup: meetup.meetupId,
         topic: meetup.topic,
@@ -49,16 +47,13 @@ const meetups = {
     const theMeetup = meetupsModels.getOne(params);
     if (!theMeetup) {
       return res.status(404).json({
-        message: 'Meetup Not Found',
+        status: 404,
+        error: 'Meetup Not Found',
       });
     }
     return res.status(200).json({
-      meetup: theMeetup.meetupId,
-      createdOn: theMeetup.createdOn,
-      topic: theMeetup.topic,
-      location: theMeetup.location,
-      happeningOn: theMeetup.happeningOn,
-      tags: theMeetup.tags,
+      status: 200,
+      data: [theMeetup]
     });
   },
 
@@ -66,7 +61,7 @@ const meetups = {
     const upcomingMeetups = meetupModel.upcomings();
     if (upcomingMeetups.length) {
       return res.status(200).json({
-        count: upcomingMeetups.length,
+        status: 200,
         data: upcomingMeetups.map(upcomingMeetup => ({
           meetupId: upcomingMeetup.meetupId,
           title: upcomingMeetup.topic,
@@ -77,29 +72,27 @@ const meetups = {
       });
     }
     return res.status(404).json({
-      message: 'No meetups found',
+      status: 404,
+      error: 'No meetups found',
     });
   },
 
   rsvps(req, res) {
     const data = req.body;
-    /* const confirmUser = usersModels.user.find(user=>user.userId === data.user); */
+    const confirmUser = usersModels.user.find(user=>user.userId === data.user);
     const confirmMeetup = meetupsModels.getOne(data.meetup);
     const confirmParams = (req.body.meetupId === req.params.meetupId);
-    const confirmStatus = 'yes' || 'no' || 'maybe';
+    const confirmStatus = (data.status === 'yes' || 'no' || 'maybe');
     if (confirmMeetup && confirmStatus && confirmParams) {
       usersModels.rsvp(data);
       return res.status(200).json({
-        status: uuid.v4(),
-        data: {
-          meetup: confirmUser.userId,
-          topic: confirmUser.topic,
-          status: data.status,
-        },
+        status: 200,
+        data: [confirmUser],
       });
     }
     return res.status(422).json({
-      message: 'Ensure information provided are valid',
+      status: 422,
+      error: 'Ensure information provided are valid',
     });
   },
 
