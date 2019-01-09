@@ -7,25 +7,24 @@ const Question = {
     const data = req.body;
     const theUser = usersModels.signUsers.find(user => user.userId === data.user);
     const confirmMeetup = meetupsModels.meetups.find(meetup => meetup.meetupId === data.meetupId);
-    if (theUser && confirmMeetup && data.title && data.body) {
-      const createdQuestion = questionsModels.askQuestion(req.body);
+
+    if(theUser && confirmMeetup && data.title && data.body){
+      if(!theUser && !confirmMeetup) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Authentication Error!, Please confirm the meetupId and UserId is correct'
+        })
+      }
+      const createdQuestion = questionsModels.askQuestion(data);
       return res.status(201).json({
         status: 201,
-        data: [createdQuestion],
-      });
-    } 
-    else if (!data.user && !data.meetupId && !data.title && !data.body) {
-      return res.status(422).json({
-        status: 422,
-        error: 'All fields are required',
+        data: [createdQuestion]
       });
     }
-    else if (!theUser || !theQuestion) {
-      return res.status(404).json({
+    return res.status(404).json({
       status: 404,
-      error: 'Authentication Error!, Please confirm user and meetupId',
-    });
-  }
+      error: "No meetups/user with no Id, Please fill all required fields"
+    })
   },
 
   upvote(req, res) {

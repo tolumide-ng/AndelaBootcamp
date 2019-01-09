@@ -19,7 +19,7 @@ class Question {
       meetupId: theMeetup.meetupId,
       title: data.title,
       body: data.body,
-      vote: data.vote,
+      vote: 0,
     };
     this.questions.push(theQuestion);
     return theQuestion;
