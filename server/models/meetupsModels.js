@@ -4,7 +4,7 @@ import moment from 'moment';
 class Meetup {
   constructor() {
     this.meetups = [];
-    this.attending = [];
+    this.attendingMeetups = [];
   }
   //method creates a meetup
   create(data) {

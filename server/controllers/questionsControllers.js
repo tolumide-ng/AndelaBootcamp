@@ -7,23 +7,23 @@ const Question = {
     const bodyOfRequest = req.body;
     const userExist = usersModels.signUsers.find(user => user.userId === bodyOfRequest.user);
     const confirmMeetup = meetupsModels.meetups.find(meetup => meetup.meetupId === bodyOfRequest.meetupId);
-
-    if(userExist && confirmMeetup && bodyOfRequest.title && bodyOfRequest.body){
-      if(!userExist && !confirmMeetup) {
+    
+    if(bodyOfRequest.user && bodyOfRequest.meetupId && bodyOfRequest.title && bodyOfRequest.body){
+      if(bodyOfRequest.user && bodyOfRequest.meetupId && !userExist && !confirmMeetup) {
         return res.status(401).json({
           status: 401,
-          error: 'Authentication Error!, Please confirm the meetupId and UserId is correct'
+          error: 'Unauthorized entity: Please fill in valid meetupId/UserId'
         })
-      }
+      } 
       const createdQuestion = questionsModels.askQuestion(bodyOfRequest);
       return res.status(201).json({
         status: 201,
         data: [createdQuestion]
       });
     }
-    return res.status(404).json({
-      status: 404,
-      error: "No meetups/user with no Id, Please fill all required fields"
+    return res.status(422).json({
+      status: 422,
+      error: "Please fill all required fields"
     })
   },
 

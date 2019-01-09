@@ -5,16 +5,16 @@ import usersModels from '../models/usersModels';
 const meetups = {
   createMeetup(req, res) {
     // all paraters are required
-    const data = req.body;
-    const dateHappening = (new Date(data.happeningOn) > new Date());
-    if (!data.topic || !data.location || !data.tags
-            || !data.happeningOn || !dateHappening) {
+    const bodyOfRequest = req.body;
+    const dateHappening = (new Date(bodyOfRequest.happeningOn) > new Date());
+    if (!bodyOfRequest.topic || !bodyOfRequest.location || !bodyOfRequest.tags
+            || !bodyOfRequest.happeningOn || !dateHappening) {
       return res.status(422).json({
         status: 422,
         error: 'All fields are required',
       });
     }
-    const createdMeetup = meetupModel.create(data);
+    const createdMeetup = meetupModel.create(bodyOfRequest);
     return res.status(201).json({
       status: 201,
       data: [createdMeetup]
@@ -22,8 +22,8 @@ const meetups = {
   },
 
   findAll(req, res) {
-    const allMeetups = meetupsModels.getAll();
-    if (!allMeetups.length) {
+    const findAllMeetups = meetupsModels.getAll();
+    if (!findAllMeetups.length) {
       return res.status(404).json({
         status: 404,
         error: 'Meetups not found',
@@ -31,7 +31,7 @@ const meetups = {
     }
     return res.status(200).json({
       status: 200,
-      data: allMeetups.map(meetup => ({
+      data: findAllMeetups.map(meetup => ({
         meetup: meetup.meetupId,
         topic: meetup.topic,
         location: meetup.location,
@@ -42,9 +42,9 @@ const meetups = {
   },
 
   findOne(req, res) {
-    const params = req.params.meetupId;
-    const theMeetup = meetupsModels.getOne(params);
-    if (theMeetup.length == 0) {
+    const requestParameter = req.params.meetupId;
+    const confirmMeetupExist = meetupsModels.getOne(requestParameter);
+    if (confirmMeetupExist.length == 0) {
       return res.status(404).json({
         status: 404,
         error: 'Meetup Not Found',
@@ -52,7 +52,7 @@ const meetups = {
     }
     return res.status(200).json({
       status: 200,
-      data: [theMeetup]
+      data: [confirmMeetupExist]
     });
   },
 
@@ -78,17 +78,17 @@ const meetups = {
   },
 
   rsvps(req, res) {
-    const data = req.body;
-    const confirmUser = usersModels.findUser(user=>user.userId === data.user);
-    const confirmMeetup = meetupsModels.getOne(data.meetup);
-    const confirmParams = (req.body.meetupId === req.params.meetupId);
-    const confirmStatus = (data.status === 'yes' || 'no' || 'maybe');
-    if(confirmMeetup && confirmParams) {
+    const bodyOfRequest = req.body;
+    const confirmUserExist = usersModels.findUser(user=>user.userId === bodyOfRequest.user);
+    const confirmMeetupExist = meetupsModels.getOne(bodyOfRequest.meetup);
+    const confirmParameterIsSame = (req.body.meetupId === req.params.meetupId);
+    const confirmStatus = (bodyOfRequest.status === 'yes' || 'no' || 'maybe');
+    if(confirmMeetupExist && confirmParameterIsSame) {
       if(confirmStatus){
-        usersModels.rsvp(data);
+        usersModels.rsvp(bodyOfRequest);
         return res.status(200).json({
           status: 200,
-          data: [confirmUser],
+          data: [confirmUserExist],
         });
       }
     		return res.status(404).json({
