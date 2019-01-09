@@ -6,11 +6,11 @@ const should = chai.should();
 
 describe('QUESTIONS', () => {
   // post request to question
-  it('should return 422 if all required fields are not filled', (done) => {
+  it('should return 404 if all required fields are not filled', (done) => {
     request(server)
       .get('/api/v1/questions/')
       .expect('Content-Type', /html/)
-      .expect(422, done);
+      .expect(404, done);
   });
 
   it('should return 404 if the questionId does not exist', (done) => {
