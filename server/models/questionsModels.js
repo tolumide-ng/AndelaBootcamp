@@ -9,38 +9,38 @@ class Question {
     this.questions = [];
   }
 
-  askQuestion(data) {
-    const theMeetup = meetupsModels.getOne(data.meetupId);
-    const theUser = userModel.findUser(data.userId);
+  askQuestion(requestBody) {
+    const meetupExist = meetupsModels.getOne(requestBody.meetupId);
+    const userExist = userModel.findUser(requestBody.userId);
     const theQuestion = {
       questionId: uuid.v4(),
       createdOn: moment.now(),
-      createdBy: theUser.userId,
-      meetupId: theMeetup.meetupId,
-      title: data.title,
-      body: data.body,
-      vote: data.vote,
+      createdBy: userExist.userId,
+      meetupId: meetupExist.meetupId,
+      title: requestBody.title,
+      body: requestBody.body,
+      vote: 0,
     };
     this.questions.push(theQuestion);
     return theQuestion;
   }
 
-  findQ(data) {
-    return this.questions.find(question => question.questionId === data);
+  findQ(idOfRequestedQuestion) {
+    return this.questions.find(question => question.questionId === idOfRequestedQuestion);
   }
 
-  requestUpvote(data) {
+  requestUpvote(questionId) {
     // does the question exist
-    const theQuestion = this.findQ(data);
-    theQuestion.vote += 1;
-    return theQuestion;
+    const theUpvotedQuestion = this.findQ(questionId);
+    theUpvotedQuestion.vote += 1;
+    return theUpvotedQuestion;
   }
 
-  requestDownvote(data) {
+  requestDownvote(questionId) {
     // does the question exist
-    const theQuestion = this.findQ(data);
-    theQuestion.vote -= 1;
-    return theQuestion;
+    const theDownvotedQuestion = this.findQ(questionId);
+    theDownvotedQuestion.vote -= 1;
+    return theDownvotedQuestion;
   }
 }
 
