@@ -4,18 +4,18 @@ import questionsModels from '../models/questionsModels';
 
 const Question = {
   createQuestion(req, res) {
-    const data = req.body;
-    const theUser = usersModels.signUsers.find(user => user.userId === data.user);
-    const confirmMeetup = meetupsModels.meetups.find(meetup => meetup.meetupId === data.meetupId);
+    const bodyOfRequest = req.body;
+    const userExist = usersModels.signUsers.find(user => user.userId === bodyOfRequest.user);
+    const confirmMeetup = meetupsModels.meetups.find(meetup => meetup.meetupId === bodyOfRequest.meetupId);
 
-    if(theUser && confirmMeetup && data.title && data.body){
-      if(!theUser && !confirmMeetup) {
+    if(userExist && confirmMeetup && bodyOfRequest.title && bodyOfRequest.body){
+      if(!userExist && !confirmMeetup) {
         return res.status(401).json({
           status: 401,
           error: 'Authentication Error!, Please confirm the meetupId and UserId is correct'
         })
       }
-      const createdQuestion = questionsModels.askQuestion(data);
+      const createdQuestion = questionsModels.askQuestion(bodyOfRequest);
       return res.status(201).json({
         status: 201,
         data: [createdQuestion]
@@ -28,13 +28,13 @@ const Question = {
   },
 
   upvote(req, res) {
-    const data = req.params.questionId;
-    const theQuestion = questionsModels.findQ(data);
-    if (theQuestion) {
-      const upvoteQuestion = questionsModels.requestUpvote(data);
+    const idOfQuestion = req.params.questionId;
+    const doesQuestionExist = questionsModels.findQ(idOfQuestion);
+    if (doesQuestionExist) {
+      questionsModels.requestUpvote(idOfQuestion);
       return res.status(200).json({
         status: 200,
-        data: [theQuestion],
+        data: [doesQuestionExist],
       });
     }
     return res.status(404).json({
@@ -44,13 +44,13 @@ const Question = {
   },
 
   downvote(req, res) {
-    const data = req.params.questionId;
-    const theQuestion = questionsModels.findQ(data);
-    if (theQuestion) {
-      questionsModels.requestDownvote(data);
+    const idOfQuestion = req.params.questionId;
+    const doesQuestionExist = questionsModels.findQ(idOfQuestion);
+    if (doesQuestionExist) {
+      questionsModels.requestDownvote(idOfQuestion);
       return res.status(200).json({
         status: 200,
-        data: [theQuestion],
+        data: [doesQuestionExist],
       });
     }
     return res.status(404).json({
