@@ -1,7 +1,8 @@
-/node_modules
+node_modules
 npm-debug.log
 .DS_Store
 /*.env
 gitignore
 dist
 package-lock.json
+coveralls
