@@ -1,4 +1,5 @@
 import moment from 'moment';
+import meetupsModels from './meetupsModels';
 import uuid from 'uuid';
 
 class User {
@@ -8,24 +9,24 @@ class User {
   }
 
   rsvp(data) {
-    const newUser = {
+    const registerNewUser = {
       userId: uuid.v4(),
       registeredId: moment.now(),
       meetupId: data.meetupId,
       firstName: data.firstName,
       response: data.status,
     };
-    this.users.push(newUser);
+    meetupsModels.attendingMeetups.push(registerNewUser);
     return newUser;
   }
 
-  signup(data) {
+  signup(bodyOfRequest) {
     const newUser = {
       userId: uuid.v4(),
       registeredId: moment.now(),
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
+      firstName: bodyOfRequest.firstName,
+      lastName: bodyOfRequest.lastName,
+      email: bodyOfRequest.email,
     };
     this.signUsers.push(newUser);
     return newUser;

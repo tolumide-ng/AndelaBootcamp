@@ -2,15 +2,16 @@ import users from '../models/usersModels';
 
 const User = {
   signup(req, res) {
-    const data = req.body;
-    const theEmail = data.email;
-    const theConfirm = users.signUsers.find(user => user.email === theEmail);
-    if (data.firstName && data.lastName && data.email) {
-      if (!theConfirm) {
-        const theUser = users.signup(data);
+    const requestBody = req.body;
+    const userEmail = requestBody.email;
+    const doesUserAlreadyExist = users.signUsers.find(user => user.email === userEmail);
+    const determingFactorsForCreation = req.body.firstName && req.body.lastName && requestBody.email;
+    if (determingFactorsForCreation) {
+      if (!doesUserAlreadyExist) {
+        const createUser = users.signup(requestBody);
         return res.status(201).json({
           status: 201,
-          data: [theUser]
+          data: [createUser]
         });
       }
       return res.status(409).json({

@@ -4,7 +4,8 @@ import server from '../app';
 
 const should = chai.should();
 
-describe('#MEETUPS rquest to meetups', () => {
+describe('#MEETUPS request to meetups', () => {
+  const forAllMeetupsTest = [10, 201, 10];
   // GET request to all meetups
   it('should return 404 if there are no meetups', (done) => {
     request(server)
@@ -38,6 +39,7 @@ describe('#MEETUPS rquest to meetups', () => {
       .expect(404, done);
   });
 
+  // rsvps a meetup
   it('should return 404 if no user has rsvps for the event', (done) => {
     request(server)
       .get('/api/v1/74550289/rsvps')
