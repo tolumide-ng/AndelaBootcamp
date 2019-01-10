@@ -26,7 +26,8 @@ class Question {
   }
 
   findQ(idOfRequestedQuestion) {
-    return this.questions.find(question => question.questionId === idOfRequestedQuestion);
+    const requestedId = Number(idOfRequestedQuestion);
+    return this.questions.find(question => question.questionId === requestedId);
   }
 
   requestUpvote(questionId) {
