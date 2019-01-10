@@ -24,20 +24,6 @@ app.get('/', (req, res) => {
 });
 
 
-app.use((req, res, next) => {
-  const error = new Error('Bad Request, Route not found');
-  error.status = 400;
-  next(error);
-});
-
-app.use((error, req, res) => {
-  res.status(error.statusCode || 400);
-  res.json({
-    error: {
-      message: error.message,
-    },
-  });
-});
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => `connected on port ${port}`);
