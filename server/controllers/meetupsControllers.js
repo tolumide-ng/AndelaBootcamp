@@ -14,7 +14,7 @@ const meetups = {
         error: 'All fields are required',
       });
     }
-    const createdMeetup = meetupModel.create(bodyOfRequest);
+    const createdMeetup = meetupsModels.create(bodyOfRequest);
     return res.status(201).json({
       status: 201,
       data: [createdMeetup]
@@ -44,7 +44,7 @@ const meetups = {
   findOne(req, res) {
     const requestParameter = req.params.meetupId;
     const confirmMeetupExist = meetupsModels.getOne(requestParameter);
-    if (confirmMeetupExist.length == 0) {
+    if (!confirmMeetupExist) {
       return res.status(404).json({
         status: 404,
         error: 'Meetup Not Found',
@@ -57,15 +57,14 @@ const meetups = {
   },
 
   allUpcomings(req, res) {
-    const upcomingMeetups = meetupModel.upcomings();
-    if (upcomingMeetups.length) {
+    const upcomingMeetups = meetupsModels.upcomings();
+    if (upcomingMeetups.length < 1) {
     return res.status(404).json({
       status: 404,
       error: 'No meetups found',
     });
-      
-    }
-	return res.status(200).json({
+  }
+  return res.status(200).json({
         status: 200,
         data: upcomingMeetups.map(upcomingMeetup => ({
           meetupId: upcomingMeetup.meetupId,
@@ -91,9 +90,9 @@ const meetups = {
           data: [confirmUserExist],
         });
       }
-    		return res.status(404).json({
-    		status: 404,
-    		error: 'Ensure information provided are valid, Not found',
+        return res.status(404).json({
+        status: 404,
+        error: 'Ensure information provided are valid, Not found',
         });
     }
     return res.status(422).json({
