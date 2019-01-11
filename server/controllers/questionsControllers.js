@@ -29,7 +29,7 @@ const Question = {
 
   upvote(req, res) {
     const idOfQuestion = req.params.questionId;
-    const doesQuestionExist = questionsModels.findQ(idOfQuestion);
+    const doesQuestionExist = questionsModels.findQuestion(idOfQuestion);
     if (doesQuestionExist) {
       questionsModels.requestUpvote(idOfQuestion);
       return res.status(200).json({
@@ -45,7 +45,7 @@ const Question = {
 
   downvote(req, res) {
     const idOfQuestion = req.params.questionId;
-    const doesQuestionExist = questionsModels.findQ(idOfQuestion);
+    const doesQuestionExist = questionsModels.findQuestion(idOfQuestion);
     if (doesQuestionExist) {
       questionsModels.requestDownvote(idOfQuestion);
       return res.status(200).json({
