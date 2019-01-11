@@ -1,8 +1,9 @@
 import chai from 'chai';
 import request from 'supertest';
 import server from '../app';
+import should from 'should';
 
-const should = chai.should();
+/* const should = chai.should(); */
 
 describe('#MEETUPS request to meetups', () => {
   const forAllMeetupsTest = [10, 201, 10];
@@ -19,6 +20,15 @@ describe('#MEETUPS request to meetups', () => {
   it('should return 422 if all required parameters are not supplied is not supplied', (done) => {
     request(server)
       .post('/api/v1/meetups')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(422, done);
+  });
+
+  it('should return 422 if all required parameters are not supplied is not supplied', (done) => {
+    request(server)
+      .post('/api/v1/meetups')
+      .send({topic: 'emman', location: 'Nwakwo', tags: ['temidayo']})
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(422, done);
