@@ -9,9 +9,9 @@ class Meetup {
   //method creates a meetup
   create(data) {
     const meetup = {
-      meetupId: uuid.v4(),
+      meetupId: Date.now(),
       topic: data.topic,
-      createdOn: moment.now(),
+      createdOn: new Date(),
       location: data.location,
       images: data.images || '',
       happeningOn: data.happeningOn,
@@ -28,12 +28,13 @@ class Meetup {
 
   //function gets one meetups
   getOne(meetupId) {
-    return this.meetups.find(meetup => meetup.meetupId === meetupId);
+    const meetupIdtoNumber = Number(meetupId);
+    return this.meetups.find(meetup => meetup.meetupId == meetupId);
   }
 
   //method returns all upcoming meetups
   upcomings() {
-    return this.meetups.filter(meetup => new Date(meetup.happeningOn) > new Date());
+    return this.meetups.filter(meetup => new Date(meetup.happeningOn.toString()) > new Date());
   }
 }
 
