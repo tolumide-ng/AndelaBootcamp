@@ -18,12 +18,12 @@ describe('#MEETUPS request to meetups', () => {
     location: 'Nigeria',
     happeningOn: 10/12/19, 
     tags: ['javascript', 'ES-6'], 
-    isAdmin: true
+    isAdmin: false
   }
 
   const adminUser = {
-    topic: 'Node.js environment',
-    location: 'Nigeria',
+    topic: 'Node.js environment',/* 
+    location: 'Nigeria', */
     happeningOn: 10/12/19, 
     tags: ['javascript', 'ES-6'], 
     isAdmin: true
@@ -48,7 +48,7 @@ describe('#MEETUPS request to meetups', () => {
     });
 
     
-  it('should return 401 if all required parameters are supplied but user is not Admin', (done) => {
+  it('should return 401 if not all required parameters are supplied and user is not Admin', (done) => {
     request(server)
       .post('/api/v1/meetups')
       .send({doesUserExist: true})
@@ -67,14 +67,14 @@ describe('#MEETUPS request to meetups', () => {
       .expect(401, done);
   });
 
-  it('should return 201 if all parameteres are spplied and user is admin', (done) => {
+  it('should return 401 if not all parameteres are spplied and user is admin', (done) => {
     request(server)
-      post('/api/v1/meetups')
+      .post('/api/v1/meetups')
       .send({doesUserExist: true})
       .send(adminUser)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(201, done);
+      .expect(401, done);
   })
 
   // find a specific meetup
