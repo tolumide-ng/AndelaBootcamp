@@ -37,8 +37,8 @@ class User {
   }
 
 
-  findUser(bodyOfRequest) {
-    const requestedId = Number(ifOfRequestedUser);
+  findUser(idOfRequestedUser) {
+    const requestedId = Number(idOfRequestedUser);
     return this.signUsers.find(user => user.userId === requestedId);
   }
 }

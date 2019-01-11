@@ -32,9 +32,9 @@ const meetups = {
         status: 401,
         error: 'Unauthorized Request: You need to be registered'
       })
-    }
+    },
 
-  findAll(req, res) {
+  findAll (req, res) {
     const findAllMeetups = meetupsModels.getAll();
     if (!findAllMeetups.length) {
       return res.status(404).json({
