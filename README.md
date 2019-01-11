@@ -32,6 +32,7 @@ The app contains 9 routes each of which perform the following fucntions:
 The route of each of this endpoint is descriptive enough to show there functions. However, It should be noted that only an Admin can post meetups and only registered users can ask questions. Each user, admin, meetup, question is addressed an automatically generatedId once created.
 
 The heroku app can be accessed here: [Heroku]()
+Link to the User Interface of the [project](https://tolumide-ng.github.io/AndelaBootcamp/UI/index.html)
 
 
 You can use also use the app locally:
