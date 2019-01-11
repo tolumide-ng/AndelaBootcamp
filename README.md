@@ -16,26 +16,26 @@
 
 
 
-This is a Node RESTful API built completely on ES-6 and compiled with babel.
-The app contains 9 routes each of which perform the following fucntions:
+- This is a Node RESTful API built completely on ES-6 and compiled with babel.
+- The app contains 9 routes each of which perform the following fucntions:
 
-**POST** -localhost://3000/api/v1/meetups
-**GET**  -localhost://3000/api/v1/meetups
-**GET**  -localhost://3000/api/v1/meetups/upcoming
-**GET**  -localhost://3000/api/v1/meetups/:meetupsId
-**POST** -localhost://3000/api/v1/meetups/:meetupId/rsvps
+- **POST** -localhost://3000/api/v1/meetups
+- **GET**  -localhost://3000/api/v1/meetups
+- **GET**  -localhost://3000/api/v1/meetups/upcoming
+- **GET**  -localhost://3000/api/v1/meetups/:meetupsId
+- **POST** -localhost://3000/api/v1/meetups/:meetupId/rsvps
 
 
-**POST**  -localhost://3000/api/v1/questions
-**PATCH** -localhost://3000/api/v1/questions/:questionId/upvote
-**PATCH** -localhost://3000/api/v1/questions/:questionId/downvote
+- **POST**  -localhost://3000/api/v1/questions
+- **PATCH** -localhost://3000/api/v1/questions/:questionId/upvote
+- **PATCH** -localhost://3000/api/v1/questions/:questionId/downvote
 
-*POST** - localhost://3000/api/v1/users
+- *POST** - localhost://3000/api/v1/users
 
-The route of each of this endpoint is descriptive enough to show there functions. However, It should be noted that only an Admin can post meetups and only registered users can ask questions. Each user, admin, meetup, question is addressed an automatically generatedId once created.
+- The route of each of this endpoint is descriptive enough to show there functions. However, It should be noted that only an Admin can post meetups and only registered users can ask questions. Each user, admin, meetup, question is addressed an automatically generatedId once created.
 
-The heroku app can be accessed here: [Heroku](https://andelabootcamp.herokuapp.com/)
-Link to the User Interface of the [project](https://tolumide-ng.github.io/AndelaBootcamp/UI/index.html)
+- The heroku app can be accessed here: [Heroku](https://andelabootcamp.herokuapp.com/)
+- Link to the User Interface of the [project](https://tolumide-ng.github.io/AndelaBootcamp/UI/index.html)
 
 
 You can use also use the app locally:
