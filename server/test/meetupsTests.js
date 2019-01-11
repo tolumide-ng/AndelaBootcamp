@@ -8,39 +8,74 @@ const asset = require('chai').should();
 const should = chai.should();
 
 describe('#MEETUPS request to meetups', () => {
-  const forAllMeetupsTest = [10, 201, 10];
+  const doesUserExist = {
+    location: 'Lekkqi',
+    topic: 'Javascript-2017', 
+    tags: ['Humans', 'Andela'],
+  }
   const requirementsToCreateMeetup = {
     topic: 'Node.js environment',
     location: 'Nigeria',
     happeningOn: 10/12/19, 
-    tags: ['javascript', 'ES-6']
+    tags: ['javascript', 'ES-6'], 
+    isAdmin: false
   }
-  // GET request to all meetups
-  it('should return 404 if there are no meetups', (done) => {
-    request(server)
-      .get('/api/v1/meetups')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(404, done);
-  });
 
-  // Create meetups
-  it('should return 422 if all required parameters are not supplied is not supplied', (done) => {
+  const adminUser = {
+    topic: 'Node.js environment',/* 
+    location: 'Nigeria', */
+    happeningOn: 10/12/19, 
+    tags: ['javascript', 'ES-6'], 
+    isAdmin: true
+  }
+
+    // GET request to all meetups
+    it('should return 404 if there are no meetups', (done) => {
+      request(server)
+        .get('/api/v1/meetups')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    });
+  
+    // Create meetups
+    it('should return 401 if user does not exist', (done) => {
+      request(server)
+        .post('/api/v1/meetups')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(401, done);
+    });
+
+    
+  it('should return 401 if not all required parameters are supplied and user is not Admin', (done) => {
     request(server)
       .post('/api/v1/meetups')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(422, done);
-  });
-
-  it('should return 422 if all required parameters are not supplied is not supplied', (done) => {
-    request(server)
-      .post('/api/v1/meetups')
+      .send({doesUserExist: true})
       .send({topic: 'emman', location: 'Nwakwo', tags: ['temidayo']})
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(422, done);
+      .expect(401, done);
   });
+  it('should return 401 if all parameters are supplied but user is not admin', (done) => {
+    request(server)
+      .post('/api/v1/meetups')
+      .send({doesUserExist: true})
+      .send(requirementsToCreateMeetup)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(401, done);
+  });
+
+  it('should return 401 if not all parameteres are spplied and user is admin', (done) => {
+    request(server)
+      .post('/api/v1/meetups')
+      .send({doesUserExist: true})
+      .send(adminUser)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(401, done);
+  })
 
   // find a specific meetup
   it('should return 404 if specific meetup does not exist', (done) => {

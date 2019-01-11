@@ -25,21 +25,21 @@ class Question {
     return theQuestion;
   }
 
-  findQ(idOfRequestedQuestion) {
+  findQuestion(idOfRequestedQuestion) {
     const requestedId = Number(idOfRequestedQuestion);
     return this.questions.find(question => question.questionId === requestedId);
   }
 
   requestUpvote(questionId) {
     // does the question exist
-    const theUpvotedQuestion = this.findQ(questionId);
+    const theUpvotedQuestion = this.findQuestion(questionId);
     theUpvotedQuestion.vote += 1;
     return theUpvotedQuestion;
   }
 
   requestDownvote(questionId) {
     // does the question exist
-    const theDownvotedQuestion = this.findQ(questionId);
+    const theDownvotedQuestion = this.findQuestion(questionId);
     theDownvotedQuestion.vote -= 1;
     return theDownvotedQuestion;
   }

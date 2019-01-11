@@ -5,7 +5,7 @@ const User = {
     const requestBody = req.body;
     const userEmail = requestBody.email;
     const doesUserAlreadyExist = users.signUsers.find(user => user.email === userEmail);
-    const determingFactorsForCreation = req.body.firstName && req.body.lastName && requestBody.email;
+    const determingFactorsForCreation = requestBody.firstName && requestBody.lastName && requestBody.email && requestBody.otherName;
     if (determingFactorsForCreation) {
       if (!doesUserAlreadyExist) {
         const createUser = users.signup(requestBody);

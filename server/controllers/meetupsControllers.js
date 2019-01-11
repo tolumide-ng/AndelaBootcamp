@@ -1,27 +1,39 @@
 import meetupsModels from '../models/meetupsModels';
-import validation from '../validations/validate';
 import usersModels from '../models/usersModels';
 
 const meetups = {
   createMeetup(req, res) {
-    // all paraters are required
     const bodyOfRequest = req.body;
-    const dateHappening = (new Date(bodyOfRequest.happeningOn) > new Date());
-    if (!bodyOfRequest.topic || !bodyOfRequest.location || !bodyOfRequest.tags
-            || !bodyOfRequest.happeningOn || !dateHappening) {
-      return res.status(422).json({
-        status: 422,
-        error: 'All fields are required',
-      });
-    }
-    const createdMeetup = meetupsModels.create(bodyOfRequest);
-    return res.status(201).json({
-      status: 201,
-      data: [createdMeetup]
-    });
-  },
+    // all parameters are required
+    const doesUserExist = usersModels.findUser(bodyOfRequest.userId);
+    if(doesUserExist){
+      if(doesUserExist.isAdmin){
+        const dateHappening = (new Date(bodyOfRequest.happeningOn) > new Date());
+        if (!bodyOfRequest.topic || !bodyOfRequest.location || !bodyOfRequest.tags
+                || !bodyOfRequest.happeningOn || !dateHappening) {
+          return res.status(422).json({
+            status: 422,
+            error: 'All fields are required',
+          });
+        }
+        const createdMeetup = meetupsModels.theCreatedMeetup(bodyOfRequest);
+        return res.status(201).json({
+          status: 201,
+          data: [createdMeetup]
+        });
+      }
+      return res.status(401).json({
+        status: 401,
+        error: 'Unauthorized Request: Only Admin can post meetups'
+      })
+      }
+      return res.status(401).json({
+        status: 401,
+        error: 'Unauthorized Request: You need to be registered'
+      })
+    },
 
-  findAll(req, res) {
+  findAll (req, res) {
     const findAllMeetups = meetupsModels.getAll();
     if (!findAllMeetups.length) {
       return res.status(404).json({
