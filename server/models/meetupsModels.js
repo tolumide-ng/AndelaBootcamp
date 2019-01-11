@@ -7,17 +7,17 @@ class Meetup {
     this.attendingMeetups = [];
   }
   //method creates a meetup
-  create(data) {
+  theCreatedMeetup(bodyOfRequest) {
     const meetup = {
-      meetupId: uuid.v4(),
-      topic: data.topic,
-      createdOn: moment.now(),
+      meetupId: Date.now(),
+      createdOn: Date.now(),
       location: data.location,
       images: data.images || '',
+      topic: data.topic,
       happeningOn: data.happeningOn,
       tags: data.tags,
     };
-    this.meetups.push(meetup);
+    this.meetups.push(theCreatedMeetup);
     return meetup;
   }
 
