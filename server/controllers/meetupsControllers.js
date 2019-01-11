@@ -1,5 +1,4 @@
 import meetupsModels from '../models/meetupsModels';
-import validation from '../validations/validate';
 import usersModels from '../models/usersModels';
 
 const meetups = {
