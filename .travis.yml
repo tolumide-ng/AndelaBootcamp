@@ -4,3 +4,12 @@ node_js:
 
 require 'coveralls'
 Coveralls.wear!
+
+script:
+ - npm test
+
+after_success:
+ - npm run coverage
+
+notifications:
+ webhooks: https://coverals.io/webhook
