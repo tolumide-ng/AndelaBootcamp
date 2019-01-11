@@ -1,12 +1,20 @@
 import chai from 'chai';
 import request from 'supertest';
 import server from '../app';
-import should from 'should';
+import meetupsModels from './../models/meetupsModels';
 
-/* const should = chai.should(); */
+const asset = require('chai').should();
+
+const should = chai.should();
 
 describe('#MEETUPS request to meetups', () => {
   const forAllMeetupsTest = [10, 201, 10];
+  const requirementsToCreateMeetup = {
+    topic: 'Node.js environment',
+    location: 'Nigeria',
+    happeningOn: 10/12/19, 
+    tags: ['javascript', 'ES-6']
+  }
   // GET request to all meetups
   it('should return 404 if there are no meetups', (done) => {
     request(server)
@@ -56,4 +64,13 @@ describe('#MEETUPS request to meetups', () => {
       .expect(404, done)
       .expect('Content-Type', /html/);
   });
+
+  it('should return an Array with length greater than 0', function() {
+    it('should return an array', function() {
+      const theCreatedMeetup = meetupsModels.create(requirementsToCreateMeetup)
+      expect(meetupsModels.create(bodyOfRequest).to.be.an('array'));
+      expect(meetupsModels.length.to.be.equal(1))`;`
+    })
+  })
+
 });

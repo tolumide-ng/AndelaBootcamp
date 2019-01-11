@@ -2,8 +2,9 @@ import chai from 'chai';
 import chaiExpect from 'chai';
 import request from 'supertest';
 import server from '../app';
-const asset = require('chai').assert;
 import usersModels from './../models/usersModels';
+
+const asset = require('chai').assert;
 
 const should = chai.should();
 
