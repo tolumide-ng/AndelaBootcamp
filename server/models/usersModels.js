@@ -8,9 +8,25 @@ class User {
     this.signUsers = [];
   }
 
-  rsvp(data) {
+  signup(bodyOfRequest) {
+    const newUser = {
+      userId: Date.now(),
+      firstName: bodyOfRequest.firstName,
+      lastName: bodyOfRequest.lastName,
+      otherName: bodyOfRequest.otherName,
+      email: bodyOfRequest.email,
+      phoneNumber: bodyOfRequest.phoneNumber,
+      userName: bodyOfRequest.userName,
+      registeredId: moment.now(),
+      isAdmin: bodyOfRequest.isAdmin,
+    };
+    this.signUsers.push(newUser);
+    return newUser;
+  }
+
+  rsvp(bodyOfRequest) {
     const registerNewUser = {
-      userId: uuid.v4(),
+      userId: bodyOfRequest.userId,
       registeredId: moment.now(),
       meetupId: data.meetupId,
       firstName: data.firstName,
@@ -20,20 +36,10 @@ class User {
     return newUser;
   }
 
-  signup(bodyOfRequest) {
-    const newUser = {
-      userId: uuid.v4(),
-      registeredId: moment.now(),
-      firstName: bodyOfRequest.firstName,
-      lastName: bodyOfRequest.lastName,
-      email: bodyOfRequest.email,
-    };
-    this.signUsers.push(newUser);
-    return newUser;
-  }
 
-  findUser(data) {
-    return this.signUsers.find(user => user.userId === data);
+  findUser(bodyOfRequest) {
+    const requestedId = Number(ifOfRequestedUser);
+    return this.signUsers.find(user => user.userId === requestedId);
   }
 }
 
