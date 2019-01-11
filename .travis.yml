@@ -1,15 +1,13 @@
 language: node_js
 node_js:
   - "stable"
-
-require 'coveralls'
-Coveralls.wear!
-
+cache:
+ directories:
+   - "node_modules"
+before_script:
+ - npm install
+ - npm run build
 script:
  - npm test
-
 after_success:
  - npm run coverage
-
-notifications:
- webhooks: https://coverals.io/webhook
