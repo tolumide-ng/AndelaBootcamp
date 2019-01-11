@@ -4,7 +4,7 @@
   "description": "Node RESTful API",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server/bin/dev",
+    "start": "npm run build && nodemon --exec babel-node server/bin/dev",
     "test": "nyc mocha --require babel-register server/test/*.js --timeout 10000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf dist",
